@@ -17,10 +17,6 @@
 
 ### 2. 在cmd中键入命令，进入服务编辑页面：
 
-?
-
-1
-
 `nssm install serviceName`
 
 ### 3. 设置服务路径地址
@@ -55,15 +51,6 @@
 
 ## nssm 常用命令
 
-?
-
-1
-
-2
-
-3
-
-4
 
 `nssm install serviceName    #安装服务`
 
