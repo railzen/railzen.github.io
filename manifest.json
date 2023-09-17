@@ -1,0 +1,36 @@
+{
+   "action": {
+      "default_icon": "icon16.png",
+      "default_popup": "popup.html",
+      "default_title": "千山:万千世界，尽在眼前"
+   },
+   "background": {
+      "service_worker": "background.js"
+   },
+   "chrome_url_overrides": {
+      "newtab": "index.html"
+   },
+   "content_scripts": [ {
+      "js": [ "content.js" ],
+      "matches": [ "http://*.qianshan.co/" ],
+      "run_at": "document_end"
+   } ],
+   "description": "千山是一个简洁的新标签页。没有广告、弹窗和冗余信息，千山希望成为通向未知的最短路径。向老朋友致歉：未及时更新隐私授权，插件下线了一周，添麻烦了！",
+   "host_permissions": [ "http://*.qianshan.co/" ],
+   "icons": {
+      "128": "icon128.png",
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiYSnTpk7GE7stFtxo+Z5jI8UfEiOLsUSlGANF/XuXy+BN4Vg6Cy5WO5qvIDazwSIGNeY2tMnanqytIZvWUa5NBxI80z2J7PIKfP73R+C8A/9fWV/10JLqiSyIT9/wCWi4gJkvTCHI138qK4A+Iee6axj/kOtgVjJEn2T1ciDiWH8v9HhuKKHo95wJ/eE4Qp8D8Idb7wN70V1QOn5zkAxUxkChiZhZXv5Q2MDD2qL8l1Pvg9EqxLmohhoXpUksN1DcjUv3ib+FC48UEcEkNCz6LSoswM4I4enESBMQFUiK2tPPZAt7v7esTOoQhwYnYSjmZ/MCGJGegXi8nzjDt2KNQIDAQAB",
+   "manifest_version": 3,
+   "name": "千山新标签页",
+   "permissions": [ "storage" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.4.0",
+   "web_accessible_resources": [ {
+      "matches": [ "\u003Call_urls>" ],
+      "resources": [ "fav.ico", "bootstrap.min.css" ]
+   } ]
+}
