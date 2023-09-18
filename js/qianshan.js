@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $("body").css("background-image","url(mountain.png)");
+  $("body").css("background-image","url(resources/mountain.png)");
   //自定义改动，避免出现先加载原始站点，然后又更新部分站点信息的情况；设置整体div.blocks为透明，不影响resize，并且可以做到在获取storage数据后再取消透明
   $("div.blocks").css('opacity','0');
   $(window).resize(function(){
@@ -664,7 +664,7 @@ $(document).ready(function(){
         var websiteSerialIDInArray = $(this).attr('id');
         var website = getWebsiteFromCurrentChoicesAsObject(websiteSerialIDInArray);
         var website_url = website.url;
-        var htmlAsStr = '<li class="preview"><img src="preview.png"/><span> </span><a target="_blank" href="' + website_url + '">预览</a></li>';
+        var htmlAsStr = '<li class="preview"><img src="resources/preview.png"/><span> </span><a target="_blank" href="' + website_url + '">预览</a></li>';
         var topOfPreview = $(this).parent().position().top - 28;
         var leftOfPreview = $(this).parent().position().left;
         $(this).parent().after(htmlAsStr);
