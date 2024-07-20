@@ -1,18 +1,20 @@
+
 <!DOCTYPE html>
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html>
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>剩余价值计算器</title>
-    <meta name="description" content="计算产品服务的剩余价值和溢价">
-    <link rel="stylesheet" href="./src/bootstrap.min.css">  
+    <meta name="description" content="使用我们的工具，可以帮你精确计算产品服务的剩余价值和溢价，助您在C2C交易中作出明智的决策！输入续费金额、交易金额和日期，即可获取详细信息。支持多种支付周期和货币选项，并提供分享功能。">
+    <link rel="stylesheet" href="bootstrap.min.css">  
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4"><a href="." onclick="location.reload();">剩余价值计算器</a></h1>
+        <h1 class="mb-4"><a href="#" onclick="location.reload();">剩余价值计算器</a></h1>
         <form id="calculatorForm">
             <div class="form-group">
                 <label for="dataDate">汇率数据日期</label>
-                <input type="text" class="form-control" id="dataDate" name="dataDate" disabled="">
+                <input type="text" class="form-control" id="dataDate" name="dataDate" disabled>
             </div>
             <div class="form-row">
                 <div class="col">
@@ -32,7 +34,7 @@
                 </div>
                 <div class="col">
                     <label for="exchangeRate">对人民币的汇率</label>
-                    <input type="number" class="form-control" id="exchangeRate" name="exchangeRate" step="0.0001" required="">
+                    <input type="number" class="form-control" id="exchangeRate" name="exchangeRate" step="0.0001" required>
                 </div>
             </div>
             <div class="form-row">
@@ -53,31 +55,31 @@
                 </div>
                 <div class="col">
                     <label for="tradeExchangeRate">对人民币的汇率</label>
-                    <input type="number" class="form-control" id="tradeExchangeRate" name="tradeExchangeRate" step="0.0001" required="">
+                    <input type="number" class="form-control" id="tradeExchangeRate" name="tradeExchangeRate" step="0.0001" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
                     <label for="currentDate">当前日期</label>
-                    <input type="date" class="form-control" id="currentDate" name="currentDate" required="">
+                    <input type="date" class="form-control" id="currentDate" name="currentDate" required>
                 </div>
                 <div class="form-group col">
                     <label for="expiryDate">到期日期</label>
-                    <input type="date" class="form-control" id="expiryDate" name="expiryDate" required="">
+                    <input type="date" class="form-control" id="expiryDate" name="expiryDate" required>
                 </div>  
             </div>          
             <div class="form-row">
                 <div class="form-group col">
                     <label for="purchasePrice">续费金额</label>
-                    <input type="number" class="form-control" id="purchasePrice" name="purchasePrice" step="0.01" required="">
+                    <input type="number" class="form-control" id="purchasePrice" name="purchasePrice" step="0.01" required>
                 </div>
                 <div class="form-group col">
                     <label for="tradePrice">交易金额</label>
-                    <input type="number" class="form-control" id="tradePrice" name="tradePrice" step="0.01" required="">
+                    <input type="number" class="form-control" id="tradePrice" name="tradePrice" step="0.01" required>
                 </div>
                 <div class="form-group col">
                     <label for="paymentFrequency">续费周期</label>
-                    <select class="form-control" id="paymentFrequency" name="paymentFrequency" required="">
+                    <select class="form-control" id="paymentFrequency" name="paymentFrequency" required>
                         <option value="yearly">年付</option>
                         <option value="monthly">月付</option>
                         <option value="quarterly">季付</option>
@@ -94,25 +96,24 @@
                 </div>
             </div>
         </form>
-        <div class="result mt-4" style="display: block;">
+        <div class="result mt-4" style="display: none;">
             <h3 style="font-size: 1.5rem;">计算结果：</h3>    
             <div class="row">
                 <div class="col">
-                    <p>续费金额: ￥<span id="resultPurchasePriceCNY">120.00</span></p>
-                    <p>剩余价值: ￥<span id="resultRemainingValueCNY">3.62</span></p>
-                    <p>剩余天数: <span id="resultRemainingDays">11</span>天 (<span id="resultRemainingMonths">0</span>个月余<span id="resultRemainingDay">11</span>天)</p>
+                    <p>续费金额: ￥<span id="resultPurchasePriceCNY"></span></p>
+                    <p>剩余价值: ￥<span id="resultRemainingValueCNY"></span></p>
+                    <p>剩余天数: <span id="resultRemainingDays"></span>天 (<span id="resultRemainingMonths"></span>个月余<span id="resultRemainingDay"></span>天)</p>
                 </div>
-                <!--
                 <div class="col">
-                    <p>交易金额: ￥<span id="resultTradePriceCNY">120.00</span></p>
-                    <p>溢价金额: ￥<span id="resultPremiumCNY">116.38</span></p>
+                    <p>交易金额: ￥<span id="resultTradePriceCNY"></span></p>
+                    <p>溢价金额: ￥<span id="resultPremiumCNY"></span></p>
+                    <p>溢价百分比: <span id="resultPremiumPercent"></span></p>
                 </div>
-                -->
             </div>
             <div class="row">
                 <div class="col">
                     <!--<p>购买建议: <span id="resultAdvice"></span></p>-->
-                    <p style="display: none;">购买建议: <span id="resultAdvice">此乃传家之宝乎？</span></p>
+                    <p style="display: none;">购买建议: <span id="resultAdvice"></span></p>
                 </div>  
             </div>
         </div>
@@ -125,10 +126,10 @@
         </div>
     </div>
 
-    <script src="./src/jquery-3.5.1.slim.min.js.下载"></script>
-    <script src="./src/popper.min.js.下载"></script>
-    <script src="./src/bootstrap.min.js.下载"></script>
-    <script src="./src/html2canvas.min.js.下载"></script>
+    <script src="jquery-3.5.1.slim.min.js"></script>
+    <script src="popper.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="html2canvas.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             fetchExchangeRates();
@@ -314,6 +315,6 @@
             }
         }    
     </script>       
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'8a6034c3bc6507aa',t:'MTcyMTQ0OTcyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;" src="./src/saved_resource.html"></iframe><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;8a6034c3bc6507aa&quot;,&quot;version&quot;:&quot;2024.7.0&quot;,&quot;r&quot;:1,&quot;token&quot;:&quot;9dc0d931804542b58fc95bfc48efaf6d&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfL4&quot;:true}}}" crossorigin="anonymous"></script>
-
-</body></html>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'8a6034c3bc6507aa',t:'MTcyMTQ0OTcyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8a6034c3bc6507aa","version":"2024.7.0","r":1,"token":"9dc0d931804542b58fc95bfc48efaf6d","serverTiming":{"name":{"cfL4":true}}}' crossorigin="anonymous"></script>
+</body>
+</html>
