@@ -1,5 +1,4 @@
 # railzen.github.io
-[说明：](https://www.cnblogs.com/mobaids/p/11567899.html)
 
 在Windows 中配置启动项仅是在用户登录后运行。在登录前要启动就需要将其配置为“服务”。
 
