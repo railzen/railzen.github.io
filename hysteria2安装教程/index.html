@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>安装Hysteria2服务端 | Docs</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="Chra&#39;s Docs">
+    <meta property="og:site_name" content="Docs">
+    <meta property="og:title" content="安装Hysteria2服务端">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blogs.chra.cc/hysteria2%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">
+    <meta name="twitter:title" content="安装Hysteria2服务端">
+    <meta name="twitter:url" content="https://blogs.chra.cc/hysteria2%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="程序员, 编程, 计算机">
+    <meta property="article:tag" content="程序员">
+    <meta name="keywords" content="Docs">
+    
+    <link rel="preload" href="/assets/css/0.styles.40c15e22.css" as="style"><link rel="preload" href="/assets/js/app.c101c991.js" as="script"><link rel="preload" href="/assets/js/2.fc51a0bd.js" as="script"><link rel="preload" href="/assets/js/28.909132a7.js" as="script"><link rel="prefetch" href="/assets/js/1.ae64a63f.js"><link rel="prefetch" href="/assets/js/10.43fafc5b.js"><link rel="prefetch" href="/assets/js/11.e6e4cd59.js"><link rel="prefetch" href="/assets/js/12.508335df.js"><link rel="prefetch" href="/assets/js/13.7a5449eb.js"><link rel="prefetch" href="/assets/js/14.71fee715.js"><link rel="prefetch" href="/assets/js/15.76490442.js"><link rel="prefetch" href="/assets/js/16.31810633.js"><link rel="prefetch" href="/assets/js/17.c64b5119.js"><link rel="prefetch" href="/assets/js/18.33daa92d.js"><link rel="prefetch" href="/assets/js/19.91554dfe.js"><link rel="prefetch" href="/assets/js/20.e1a6e9d0.js"><link rel="prefetch" href="/assets/js/21.1ec15f73.js"><link rel="prefetch" href="/assets/js/22.dd119c27.js"><link rel="prefetch" href="/assets/js/23.5278aa0f.js"><link rel="prefetch" href="/assets/js/24.990e25c2.js"><link rel="prefetch" href="/assets/js/25.83bc2232.js"><link rel="prefetch" href="/assets/js/26.3d6d8b45.js"><link rel="prefetch" href="/assets/js/27.b53d804f.js"><link rel="prefetch" href="/assets/js/29.dc61ae75.js"><link rel="prefetch" href="/assets/js/3.1b8ed9a8.js"><link rel="prefetch" href="/assets/js/30.68665894.js"><link rel="prefetch" href="/assets/js/31.af623523.js"><link rel="prefetch" href="/assets/js/32.ba0a51eb.js"><link rel="prefetch" href="/assets/js/33.e1885f8f.js"><link rel="prefetch" href="/assets/js/34.6b02e362.js"><link rel="prefetch" href="/assets/js/35.9a63eeee.js"><link rel="prefetch" href="/assets/js/36.c81c5e6a.js"><link rel="prefetch" href="/assets/js/4.f84188a3.js"><link rel="prefetch" href="/assets/js/5.c23ff20f.js"><link rel="prefetch" href="/assets/js/6.28313bfe.js"><link rel="prefetch" href="/assets/js/7.0aa4b614.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.9d121541.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.40c15e22.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="Docs" class="logo"> <span class="site-name can-hide">Docs</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/docs/" class="nav-link">
+  文档
+</a></div> <a href="https://github.com/railzen/CherryScript" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/docs/" class="nav-link">
+  文档
+</a></div> <a href="https://github.com/railzen/CherryScript" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/docs/" class="sidebar-link">Docs</a></li></ul> </aside> <main class="page"> <div class="content"><div style="width:100%"><div class="theme-default-content custom-content content__default"><h4 id="安装hysteria2服务端"><a href="#安装hysteria2服务端" class="header-anchor">#</a> 安装Hysteria2服务端</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>bash &lt;(curl -fsSL https://get.hy2.sh/)
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h4 id="cd到hysteria目录下"><a href="#cd到hysteria目录下" class="header-anchor">#</a> cd到hysteria目录下</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>cd /etc/hysteria/
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h4 id="生成自签名证书"><a href="#生成自签名证书" class="header-anchor">#</a> 生成自签名证书</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>openssl req -x509 -nodes -newkey ec:&lt;(openssl ecparam -name prime256v1) -keyout /etc/hysteria/server.key -out /etc/hysteria/server.crt -subj &quot;/CN=apple.com&quot; -days 36500 &amp;&amp; sudo chown hysteria /etc/hysteria/server.key &amp;&amp; sudo chown hysteria /etc/hysteria/server.crt
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h4 id="配置文件修改config-yaml"><a href="#配置文件修改config-yaml" class="header-anchor">#</a> 配置文件修改config.yaml</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>listen: :46153
+ 
+# 以下 acme 和 tls 字段，二选一
+# 有域名部署的选择 acme ，无域名的选择 tls
+# 选择 acme，必须注释掉 tls，反之一样
+ 
+#acme:
+#  domains:
+#    - ssharp.ccssharp.cc        # 域名
+#  email: your@email.com   # 邮箱，格式正确即可
+ 
+tls:
+  cert: /etc/hysteria/server.crt
+  key: /etc/hysteria/server.key
+ 
+auth:
+  type: password
+  password: 0ac82ed2-33e2-4222-a178-cfea4886b041
+ 
+masquerade:
+  type: proxy
+  proxy:
+    url: https://apple.com # 伪装网站
+    rewriteHost: true
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br></div></div><h4 id="启动服务"><a href="#启动服务" class="header-anchor">#</a> 启动服务</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>启动：systemctl start hysteria-server.service
+重启：systemctl restart hysteria-server.service
+开机自启：systemctl enable hysteria-server.service
+查看状态：systemctl status hysteria-server.service
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div></div> <footer class="page-edit" style="margin:0;"><!----> <!----></footer> <!----></div> <div class="toc-container-sidebar"><div class="pos-box"><div class="icon-arrow"></div> <div class="scroll-box" style="max-height:86vh"><div style="font-weight:bold;">安装Hysteria2服务端</div> <hr> <div class="toc-box"><!----></div></div></div></div></div>  <main class="footer"> <div class="copy-right"><span class="name">2018 -  版权所有   |     </span> <a target="_blank" rel="noreferrer">
+          
+        </a></div></main></main> <aside class="page-sidebar"> <div class="page-side-toolbar"></div>  </aside></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.c101c991.js" defer></script><script src="/assets/js/2.fc51a0bd.js" defer></script><script src="/assets/js/28.909132a7.js" defer></script>
+  </body>
+</html>
