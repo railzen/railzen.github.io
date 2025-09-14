@@ -1,0 +1,1234 @@
+:root {
+  --md-sys-color-primary:            #333446;
+  --md-sys-color-on-primary:         #FFFFFF;
+  --md-sys-color-primary-container:  #B8CFCE;
+  --md-sys-color-on-primary-container:#00131A;
+
+  --md-sys-color-secondary:          #7F8CAA;
+  --md-sys-color-on-secondary:       #FFFFFF;
+  --md-sys-color-secondary-container:#D3D8E8;
+  --md-sys-color-on-secondary-container:#10131E;
+
+  --md-sys-color-tertiary:           #B8CFCE;
+  --md-sys-color-on-tertiary:        #002021;
+
+  --md-sys-color-surface:            #FFFFFF;
+  --md-sys-color-on-surface:         #333446;
+  --md-sys-color-surface-variant:    #E0E4E4;
+  --md-sys-color-on-surface-variant: #505462;
+  --md-sys-color-surface-container:       #EAEFEF;
+  --md-sys-color-surface-container-high:  #F4F7F7;
+  --md-sys-color-surface-container-highest:#FFFFFF;
+
+  --md-sys-color-background:         #EAEFEF;
+  --md-sys-color-on-background:      #333446;
+
+  --md-sys-color-error:              #BA1A1A;
+  --md-sys-color-on-error:           #FFFFFF;
+  --md-sys-color-error-container:    #FFDAD6;
+  --md-sys-color-on-error-container: #410002;
+
+  --md-sys-color-success:            #4CAF50;
+  --md-sys-color-on-success:         #FFFFFF;
+  --md-sys-color-success-container:  #C8E6C9;
+  --md-sys-color-on-success-container:#00390A;
+
+  --md-sys-color-outline:            #8C909E;
+  --md-sys-color-outline-variant:    #CCD0D8;
+  --md-sys-color-shadow:             #000000;
+
+  --primary-color:     var(--md-sys-color-primary);
+  --secondary-color:   var(--md-sys-color-secondary);
+  --background-color:  var(--md-sys-color-background);
+  --card-background-color: var(--md-sys-color-surface-container);
+  --text-color:        var(--md-sys-color-on-surface);
+  --border-color:      var(--md-sys-color-outline-variant);
+  --hover-color:       var(--md-sys-color-surface-container-high);
+  --result-color:      var(--md-sys-color-success);
+  --error-color:       var(--md-sys-color-error);
+  --input-background:  var(--md-sys-color-surface-variant);
+  --shadow-color:      rgba(0,0,0,.08);
+  --shadow-hover-color:rgba(0,0,0,.12);
+  --footer-color:      var(--md-sys-color-on-surface-variant);
+  --success-text:      var(--md-sys-color-on-success);
+  --error-text:        var(--md-sys-color-on-error);
+}
+
+[data-theme="dark"] {
+  --md-sys-color-primary:            #B8CFCE;
+  --md-sys-color-on-primary:         #002021;
+  --md-sys-color-primary-container:  #4A5B63;
+  --md-sys-color-on-primary-container:#D8EAE9;
+
+  --md-sys-color-secondary:          #9BA7C4;
+  --md-sys-color-on-secondary:       #0F1421;
+  --md-sys-color-secondary-container:#424D68;
+  --md-sys-color-on-secondary-container:#DEE3F3;
+
+  --md-sys-color-tertiary:           #7F8CAA;
+  --md-sys-color-on-tertiary:        #00131E;
+
+  --md-sys-color-surface:            #12131A;
+  --md-sys-color-on-surface:         #E3E6EF;
+  --md-sys-color-surface-variant:    #505462;
+  --md-sys-color-on-surface-variant: #CACDD9;
+  --md-sys-color-surface-container:       #1F2028;
+  --md-sys-color-surface-container-high:  #292B33;
+  --md-sys-color-surface-container-highest:#33353E;
+
+  --md-sys-color-background:         #12131A;
+  --md-sys-color-on-background:      #E3E6EF;
+
+  --md-sys-color-error:              #FFB4AB;
+  --md-sys-color-on-error:           #690005;
+  --md-sys-color-error-container:    #93000A;
+  --md-sys-color-on-error-container: #FFDAD6;
+
+  --md-sys-color-success:            #7BDA71;
+  --md-sys-color-on-success:         #00390A;
+  --md-sys-color-success-container:  #005313;
+  --md-sys-color-on-success-container:#97F68D;
+
+  --md-sys-color-outline:            #9599A8;
+  --md-sys-color-outline-variant:    #505462;
+  --md-sys-color-shadow:             #000000;
+
+  --primary-color:     var(--md-sys-color-primary);
+  --secondary-color:   var(--md-sys-color-secondary);
+  --background-color:  var(--md-sys-color-background);
+  --card-background-color: var(--md-sys-color-surface-container);
+  --text-color:        var(--md-sys-color-on-surface);
+  --border-color:      var(--md-sys-color-outline-variant);
+  --hover-color:       var(--md-sys-color-surface-container-high);
+  --result-color:      var(--md-sys-color-success);
+  --error-color:       var(--md-sys-color-error);
+  --input-background:  var(--md-sys-color-surface-variant);
+  --shadow-color:      rgba(0,0,0,.30);
+  --shadow-hover-color:rgba(0,0,0,.40);
+  --footer-color:      var(--md-sys-color-on-surface-variant);
+  --success-text:      var(--md-sys-color-on-success);
+  --error-text:        var(--md-sys-color-on-error);
+}
+
+.md-elevation--1 {
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.md-elevation--2 {
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+}
+
+.md-elevation--3 {
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+}
+
+.md-elevation--4 {
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+}
+
+.md-elevation--5 {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* 重置基本样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 基本页面样式 */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 容器样式 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+}
+
+/* 页头样式 */
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+h1 {
+    color: var(--md-sys-color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+h1 i {
+    font-size: inherit;
+}
+
+/* 主要内容布局 */
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+/* 计算器和结果区域的共同样式 */
+.calculator, .result {
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: 24px;
+    padding: 2rem;
+    transition: all 0.3s ease, background-color 0.3s ease;
+}
+
+/* 结果区域特定样式 */
+.result {
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+}
+
+/* Material Design 3 悬停效果 */
+.calculator:hover, .result:hover {
+    background-color: var(--md-sys-color-surface-container-high);
+}
+
+/* 输入组样式 */
+.input-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* 表单组样式 */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Material Web组件样式覆盖 */
+md-outlined-text-field,
+md-outlined-select {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+/* 计算按钮样式 */
+.calculate-button {
+    width: 100%;
+    margin-top: 1rem;
+    --md-filled-button-container-height: 56px;
+}
+
+/* 添加鼠标指针样式 */
+input[type="text"]#expiryDate,
+input[type="text"]#transactionDate {
+    cursor: pointer;
+}
+
+/* 输入框和选择框焦点样式 */
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+}
+
+/* 更新时间样式 */
+.update-time {
+    font-size: 0.75rem;
+    color: var(--footer-color);
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    transition: color 0.3s ease;
+}
+
+/* 按钮样式 */
+button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+}
+
+button i {
+    margin-right: 0.5rem;
+}
+
+/* 结果区域标题样式 */
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.result-header h2 {
+    color: var(--md-sys-color-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.result-header h2 i {
+    font-size: inherit;
+}
+
+/* 结果网格样式 */
+.result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* 结果项样式 - Material Design Cards */
+.result-item {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    --md-card-container-color: var(--md-sys-color-surface-container-highest);
+}
+
+.result-item:hover {
+    --md-card-container-color: var(--md-sys-color-surface-container-high);
+}
+
+.result-content {
+    padding: 1rem;
+}
+
+/* 结果标签样式 */
+.result-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.result-label i {
+    font-size: 1.125rem;
+    color: var(--md-sys-color-primary);
+    width: 1.125rem;
+    text-align: center;
+}
+
+/* 结果值样式 */
+.result-value {
+    display: block;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+
+/* 高亮结果项样式 */
+.highlight {
+    --md-card-container-color: var(--md-sys-color-primary-container);
+}
+
+.highlight .result-label {
+    color: var(--md-sys-color-on-primary-container);
+}
+
+.highlight .result-label i {
+    color: var(--md-sys-color-on-primary-container);
+}
+
+.highlight .result-value {
+    color: var(--md-sys-color-on-primary-container);
+    font-weight: 600;
+}
+
+/* 页脚样式 */
+footer {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.footer-card {
+    --md-card-container-color: var(--md-sys-color-surface-container);
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.project-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+/* 链接样式 */
+.project-links a {
+    color: var(--md-sys-color-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.project-links a:hover {
+    color: var(--md-sys-color-secondary);
+}
+
+.project-links a i {
+    font-size: 1.125rem;
+    width: 1.125rem;
+    text-align: center;
+}
+
+.version-badge {
+    --md-chip-label-text-color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Material Design 3 通知样式 */
+#notifications {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 12px;
+    z-index: 1000;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.notification {
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    max-width: 320px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.notification.success {
+    background-color: var(--md-sys-color-success-container);
+    color: var(--md-sys-color-on-success-container);
+    box-shadow: var(--md-elevation--2);
+}
+
+.notification.error {
+    background-color: var(--md-sys-color-error-container);
+    color: var(--md-sys-color-on-error-container);
+    box-shadow: var(--md-elevation--2);
+}
+
+.notification.warning {
+    background-color: #fef7e0;
+    color: #7c2d12;
+    box-shadow: var(--md-elevation--2);
+}
+
+[data-theme="dark"] .notification.warning {
+    background-color: #451a03;
+    color: #fed7aa;
+}
+
+@media (max-width: 768px) {
+    #notifications {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        align-items: center;
+    }
+    
+    .notification {
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+}
+
+/* Flatpickr 暗黑模式 */
+[data-theme="dark"] .flatpickr-calendar {
+    background: var(--card-background-color);
+    color: var(--text-color);
+    box-shadow: 0 3px 13px var(--shadow-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .flatpickr-months {
+    background-color: var(--card-background-color);
+}
+
+[data-theme="dark"] .flatpickr-month {
+    color: var(--text-color);
+    fill: var(--text-color);
+}
+
+[data-theme="dark"] .flatpickr-weekday {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .flatpickr-day {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .flatpickr-day.selected {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+[data-theme="dark"] .flatpickr-day:hover {
+    background-color: var(--hover-color);
+}
+
+[data-theme="dark"] .flatpickr-day.prevMonthDay, 
+[data-theme="dark"] .flatpickr-day.nextMonthDay {
+    color: var(--footer-color);
+}
+
+[data-theme="dark"] .flatpickr-current-month .flatpickr-monthDropdown-months {
+    color: var(--text-color);
+    background-color: var(--card-background-color);
+}
+
+/* Flatpickr 年份选择器箭头按钮暗色模式样式 */
+[data-theme="dark"] .flatpickr-prev-month,
+[data-theme="dark"] .flatpickr-next-month {
+    color: var(--text-color) !important;
+    fill: var(--text-color) !important;
+}
+
+[data-theme="dark"] .flatpickr-prev-month:hover,
+[data-theme="dark"] .flatpickr-next-month:hover {
+    color: var(--primary-color) !important;
+    fill: var(--primary-color) !important;
+}
+
+/* 年份选择器的上下箭头 - 正确的类名和属性 */
+[data-theme="dark"] .numInputWrapper span.arrowUp:after {
+    border-bottom-color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .numInputWrapper span.arrowDown:after {
+    border-top-color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .numInputWrapper span.arrowUp:hover:after {
+    border-bottom-color: var(--primary-color) !important;
+}
+
+[data-theme="dark"] .numInputWrapper span.arrowDown:hover:after {
+    border-top-color: var(--primary-color) !important;
+}
+
+/* 年份选择器箭头按钮背景 */
+[data-theme="dark"] .numInputWrapper span {
+    border-color: var(--border-color) !important;
+    background-color: var(--card-background-color) !important;
+}
+
+[data-theme="dark"] .numInputWrapper span:hover {
+    background-color: var(--hover-color) !important;
+}
+
+[data-theme="dark"] .numInputWrapper:hover {
+    background-color: var(--hover-color) !important;
+}
+
+/* 确保在Flatpickr日历容器内的年份选择器箭头也被正确样式化 */
+[data-theme="dark"] .flatpickr-calendar .numInputWrapper span.arrowUp:after {
+    border-bottom-color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .flatpickr-calendar .numInputWrapper span.arrowDown:after {
+    border-top-color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .flatpickr-calendar .numInputWrapper span.arrowUp:hover:after {
+    border-bottom-color: var(--primary-color) !important;
+}
+
+[data-theme="dark"] .flatpickr-calendar .numInputWrapper span.arrowDown:hover:after {
+    border-top-color: var(--primary-color) !important;
+}
+
+[data-theme="dark"] .flatpickr-calendar .numInputWrapper span {
+    border-color: var(--border-color) !important;
+    background-color: var(--card-background-color) !important;
+}
+
+[data-theme="dark"] .flatpickr-calendar .numInputWrapper span:hover {
+    background-color: var(--hover-color) !important;
+}
+
+/* 年份输入框样式 */
+[data-theme="dark"] .flatpickr-current-month .cur-year {
+    color: var(--text-color);
+    background-color: var(--card-background-color);
+}
+
+[data-theme="dark"] .flatpickr-current-month .cur-year:hover {
+    background-color: var(--hover-color);
+}
+
+/* 月份选择器样式 */
+[data-theme="dark"] .flatpickr-current-month .flatpickr-monthDropdown-months:hover {
+    background-color: var(--hover-color);
+}
+
+/* Material Design 3 响应式设计 */
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    .result {
+        position: static;
+        margin-top: 2rem;
+    }
+
+    .input-group {
+        grid-template-columns: 1fr;
+    }
+
+    .theme-toggle {
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .settings-toggle {
+        top: 1rem;
+        right: 4rem;
+    }
+
+    .footer-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .project-links {
+        justify-content: center;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+    /* 容器padding调整 */
+    .container {
+        padding: 1rem;
+    }
+    
+    /* 标题大小调整 */
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    /* 主要内容布局 */
+    main {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* 计算器和结果区域调整 */
+    .calculator, .result {
+        padding: 1.5rem;
+        border-radius: 15px;
+    }
+    
+    /* 输入组样式调整 */
+    .input-group {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    /* 表单元素大小调整 */
+    input, select {
+        padding: 0.8rem;
+        font-size: 16px;
+        height: 45px;
+    }
+    
+    /* 按钮样式调整 */
+    button {
+        padding: 0.8rem;
+        height: 45px;
+        margin-top: 0.5rem;
+    }
+    
+    /* 结果区域调整 */
+    .result {
+        margin-top: 1.5rem;
+    }
+    
+    .result h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    /* 结果网格调整为单列 */
+    .result-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    /* 结果项样式调整 */
+    .result-item {
+        padding: 0.8rem;
+    }
+    
+    .result-label {
+        font-size: 0.85rem;
+    }
+    
+    .result-value {
+        font-size: 1.1rem;
+    }
+    
+    /* 高亮结果项调整 */
+    .highlight .result-value {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    button, 
+    select, 
+    input[type="text"],
+    .result-item {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* 优化触摸反馈 */
+    button:active,
+    .result-item:active {
+        transform: scale(0.98);
+    }
+    
+    /* 调整通知位置和大小 */
+    .notification {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+}
+
+/* 针对特小屏幕的额外优化 */
+@media (max-width: 320px) {
+    .container {
+        padding: 0.8rem;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .calculator, .result {
+        padding: 1rem;
+    }
+    
+    input, select, button {
+        font-size: 14px;
+    }
+}
+
+/* 加入鼠标选中和点击效果 */
+.highlight .result-value {
+    color: var(--md-sys-color-on-primary-container);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+.copy-icon {
+    color: var(--md-sys-color-on-primary-container);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.25rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    opacity: 0.8;
+}
+
+.copy-icon:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.highlight .result-value:active,
+.copy-icon:active {
+    transform: scale(0.95);
+}
+
+
+/* 结果区域标题栏样式 */
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+/* 截图按钮样式 */
+.screenshot-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: transparent;
+    color: var(--primary-color);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    padding: 0;
+    box-shadow: none;
+    position: absolute;
+    right: 35px;
+    top: 38px;
+    line-height: 1;
+}
+
+.screenshot-btn:hover {
+    background-color: transparent;
+    transform: scale(1.1);
+    box-shadow: none;
+    color: var(--secondary-color);
+}
+
+.screenshot-btn i {
+    font-size: 1.2rem;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* 设置侧边栏样式 */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.settings-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100%;
+    z-index: 1000;
+    transition: right 0.3s ease;
+}
+
+.settings-sidebar.active {
+    right: 0;
+}
+
+.sidebar-card {
+    height: 100%;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--md-sys-color-surface-container-high);
+    --md-elevated-card-container-color: var(--md-sys-color-surface-container-high);
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    flex-shrink: 0;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    color: var(--md-sys-color-on-surface);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sidebar-header h2 i {
+    color: var(--md-sys-color-primary);
+}
+
+.sidebar-content {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.sidebar-actions {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+/* 设置表单样式 */
+.sidebar-content .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.radio-group-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
+
+.radio-group-label i {
+    font-size: 1.125rem;
+    color: var(--md-sys-color-primary);
+}
+
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.radio-label {
+    font-size: 0.875rem;
+    color: var(--md-sys-color-on-surface);
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+.help-text {
+    font-size: 0.75rem;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-top: 0.25rem;
+}
+
+
+/* 输入框带切换按钮 */
+.input-with-toggle {
+    position: relative;
+    display: flex;
+}
+
+.input-with-toggle input {
+    flex: 1;
+    padding-right: 40px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 40px;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: none;
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+    background: transparent;
+    transform: none;
+    box-shadow: none;
+}
+
+/* 帮助文本样式 */
+.help-text {
+    font-size: 0.75rem;
+    color: var(--footer-color);
+    margin-top: 0.3rem;
+}
+
+/* 单选按钮组样式 */
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+.radio-label input[type="radio"] {
+    width: auto;
+    margin: 0 0.5rem 0 0;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.radio-label input[type="radio"]:checked {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    box-shadow: inset 0 0 0 4px var(--card-background-color);
+}
+
+.radio-label input[type="radio"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2), inset 0 0 0 4px var(--card-background-color);
+}
+
+.radio-label span {
+    font-size: 0.95rem;
+}
+
+/* 按钮样式 */
+.primary-btn, .secondary-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    width: auto;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.primary-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.secondary-btn:hover {
+    background-color: var(--hover-color);
+    border-color: var(--text-color);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .settings-toggle {
+        top: 1rem;
+        right: 4rem;
+    }
+
+    #settingsToggle {
+        width: 36px;
+        height: 36px;
+    }
+
+    /* 侧边栏响应式设计 */
+    .settings-sidebar {
+        width: 100%;
+        right: -100%;
+    }
+
+    .sidebar-header {
+        padding: 1rem;
+    }
+
+    .sidebar-content {
+        padding: 1rem;
+    }
+
+    .sidebar-actions {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .sidebar-actions md-filled-button,
+    .sidebar-actions md-text-button {
+        width: 100%;
+    }
+}
+
+/* Material Design 3 高价值结果动画 */
+@keyframes high-value-glow {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+}
+
+.high-value-result {
+    animation: high-value-glow 2s ease-in-out infinite;
+    color: var(--md-sys-color-primary) !important;
+    font-weight: 700 !important;
+}
+
+/* Material Web 组件自定义样式 */
+md-outlined-text-field {
+    --md-outlined-text-field-container-shape: 12px;
+    --md-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    --md-outlined-text-field-input-text-color: var(--md-sys-color-on-surface);
+}
+
+md-outlined-select {
+    --md-outlined-select-text-field-container-shape: 12px;
+    --md-outlined-select-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+}
+
+md-filled-button {
+    --md-filled-button-container-shape: 12px;
+}
+
+md-icon-button {
+    --md-icon-button-state-layer-shape: 50%;
+}
+
+md-card {
+    --md-card-container-shape: 12px;
+}
+
+
+/* Font Awesome 图标在 Material Web 组件中的样式 */
+md-outlined-text-field i[slot="leading-icon"],
+md-outlined-select i[slot="leading-icon"] {
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 1.25rem;
+    width: 1.25rem;
+    text-align: center;
+}
+
+md-filled-button i[slot="icon"],
+md-text-button i[slot="icon"] {
+    font-size: 1.125rem;
+    width: 1.125rem;
+    text-align: center;
+}
+
+md-icon-button i {
+    font-size: 1.25rem;
+    width: 1.25rem;
+    text-align: center;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+[data-theme="dark"] md-outlined-text-field {
+    --md-outlined-text-field-outline-color: var(--md-sys-color-outline);
+    --md-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    --md-outlined-text-field-input-text-color: var(--md-sys-color-on-surface);
+}
+
+[data-theme="dark"] md-outlined-select {
+    --md-outlined-select-text-field-outline-color: var(--md-sys-color-outline);
+    --md-outlined-select-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+}
+
+[data-theme="dark"] md-filled-button {
+    --md-filled-button-container-color: var(--md-sys-color-primary);
+    --md-filled-button-label-text-color: var(--md-sys-color-on-primary);
+}
+
+[data-theme="dark"] md-icon-button {
+    --md-icon-button-icon-color: var(--md-sys-color-on-surface-variant);
+}
+
+[data-theme="dark"] md-card {
+    --md-card-container-color: var(--md-sys-color-surface-container);
+}
+
+/* 主题切换和设置按钮样式 */
+.theme-toggle, .settings-toggle {
+    position: absolute;
+    z-index: 100;
+}
+
+.theme-toggle {
+    top: 1.5rem;
+    right: 1.5rem;
+}
+
+.settings-toggle {
+    top: 1.5rem;
+    right: 4.5rem;
+}
