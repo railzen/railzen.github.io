@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在线工具箱 · UUID / 密码生成器</title>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --border: #e6e8ec;
+    --text: #1c1e21;
+    --text-secondary: #6b7280;
+    --accent: #4f46e5;
+    --accent-hover: #4338ca;
+    --accent-soft: #eef2ff;
+    --radius: 12px;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115;
+      --surface: #171a21;
+      --border: #262b36;
+      --text: #e6e8ec;
+      --text-secondary: #9aa1ad;
+      --accent: #818cf8;
+      --accent-hover: #6366f1;
+      --accent-soft: #232742;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    line-height: 1.5;
+  }
+  .wrap { width: 100%; max-width: 640px; }
+  header { text-align: center; margin-bottom: 28px; }
+  header h1 { font-size: 24px; font-weight: 700; letter-spacing: .5px; }
+  header p { color: var(--text-secondary); font-size: 14px; margin-top: 6px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(16, 24, 40, .05);
+  }
+  .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
+  .card-title { font-size: 16px; font-weight: 600; }
+
+  /* 长度分段选择器 */
+  .seg { display: inline-flex; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 3px; }
+  .seg button {
+    border: none; background: transparent; color: var(--text-secondary);
+    font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 8px;
+    cursor: pointer; transition: background .15s ease, color .15s ease;
+  }
+  .seg button.active { background: var(--surface); color: var(--accent); font-weight: 600; box-shadow: 0 1px 2px rgba(16,24,40,.12); }
+
+  .output-row { display: flex; gap: 10px; align-items: stretch; }
+  .output {
+    flex: 1; min-width: 0;
+    font-family: var(--mono); font-size: 15px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 14px; display: flex; align-items: center;
+    overflow-x: auto; white-space: nowrap; user-select: all;
+  }
+  .output::-webkit-scrollbar { height: 6px; }
+  .output::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .icon-btn {
+    flex: none; width: 44px; border: 1px solid var(--border); background: var(--surface);
+    border-radius: 10px; cursor: pointer; color: var(--text-secondary);
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: color .15s ease, border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .icon-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .icon-btn:active { transform: scale(.94); }
+  .icon-btn svg { width: 18px; height: 18px; display: block; }
+
+  .icon-btn.copied { color: #16a34a; border-color: #16a34a; }
+  .icon-btn.refreshing svg { animation: spin .5s ease; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .hint { margin-top: 12px; font-size: 12px; color: var(--text-secondary); }
+
+  /* 其他工具导航 */
+  .nav-section-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 4px 2px 12px; letter-spacing: .5px; }
+  .tool-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .tool-link {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 16px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); text-decoration: none; color: var(--text);
+    transition: border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .tool-link:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .tool-link:active { transform: scale(.99); }
+  .tool-link .name { font-size: 14px; font-weight: 600; }
+  .tool-link .desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .tool-link .arrow { flex: none; color: var(--text-secondary); transition: color .15s ease, transform .15s ease; }
+  .tool-link:hover .arrow { color: var(--accent); transform: translateX(3px); }
+  .tool-link .arrow svg { width: 18px; height: 18px; display: block; }
+
+  /* 轻提示 */
+  .toast {
+    position: fixed; left: 50%; bottom: 32px; transform: translateX(-50%) translateY(16px);
+    background: var(--text); color: var(--surface); font-size: 13px;
+    padding: 9px 16px; border-radius: 8px; opacity: 0; pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .toast.show { opacity: .95; transform: translateX(-50%) translateY(0); }
+
+  footer { text-align: center; color: var(--text-secondary); font-size: 12px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>在线工具箱</h1>
+    <p>本地随机生成 · 不上传任何数据</p>
+  </header>
+
+  <!-- UUID 生成器 -->
+  <section class="card">
+    <div class="card-head">
+      <span class="card-title">UUID v4</span>
+    </div>
+    <div class="output-row">
+      <div class="output" id="uuidOutput">—</div>
+      <button class="icon-btn" id="uuidCopy" title="复制" aria-label="复制 UUID">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+      <button class="icon-btn" id="uuidRefresh" title="重新生成" aria-label="重新生成 UUID">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- 密码生成器 -->
+  <section class="card">
+    <div class="card-head">
+      <span class="card-title">随机密码</span>
+      <div class="seg" id="lenSeg" role="group" aria-label="密码长度">
+        <button data-len="12">12 位</button>
+        <button data-len="16" class="active">16 位</button>
+        <button data-len="24">24 位</button>
+      </div>
+    </div>
+    <div class="output-row">
+      <div class="output" id="pwdOutput">—</div>
+      <button class="icon-btn" id="pwdCopy" title="复制" aria-label="复制密码">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+      <button class="icon-btn" id="pwdRefresh" title="重新生成" aria-label="重新生成密码">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- 其他工具导航 -->
+  <p class="nav-section-title">其他工具</p>
+  <nav class="tool-grid">
+    <a class="tool-link" href="./killtraffic">
+      <span>
+        <span class="name">流量消耗</span>
+        <div class="desc">蜂窝 / 网络测速流量统计</div>
+      </span>
+      <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+    </a>
+    <a class="tool-link" href="./calc_dbi">
+      <span>
+        <span class="name">空口衰减计算</span>
+        <div class="desc">无线传输损耗计算</div>
+      </span>
+      <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+    </a>
+    <a class="tool-link" href="./cloudvalue-calculation">
+      <span>
+        <span class="name">剩余价值计算</span>
+        <div class="desc">云服务剩余价值计算器</div>
+      </span>
+      <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+    </a>
+  </nav>
+</div>
+
+<div class="toast" id="toast">已复制</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // Base58（比特币字母表）：去掉 0 O I l 的数字与大小写字母，外加指定符号
+  var CHARSET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz!@#$%&';
+
+  var uuidOutput = document.getElementById('uuidOutput');
+  var pwdOutput  = document.getElementById('pwdOutput');
+  var pwdLen = 16;
+
+  /* ---------- 生成逻辑 ---------- */
+
+  // 加密安全的随机整数 [0, max)，使用拒绝采样避免模偏差
+  function randomInt(max) {
+    var range = 256 - (256 % max);
+    var buf = new Uint8Array(1);
+    var b;
+    do {
+      crypto.getRandomValues(buf);
+      b = buf[0];
+    } while (b >= range);
+    return b % max;
+  }
+
+  function generateUUID() {
+    if (crypto.randomUUID) return crypto.randomUUID();
+    // 回退：手动构造 v4 UUID
+    var bytes = new Uint8Array(16);
+    crypto.getRandomValues(bytes);
+    bytes[6] = (bytes[6] & 0x0f) | 0x40;
+    bytes[8] = (bytes[8] & 0x3f) | 0x80;
+    var hex = [];
+    for (var i = 0; i < 16; i++) hex.push(('0' + bytes[i].toString(16)).slice(-2));
+    return hex.slice(0,4).join('') + '-' + hex.slice(4,6).join('') + '-' +
+           hex.slice(6,8).join('') + '-' + hex.slice(8,10).join('') + '-' +
+           hex.slice(10,16).join('');
+  }
+
+  function generatePassword(len) {
+    var out = '';
+    for (var i = 0; i < len; i++) out += CHARSET.charAt(randomInt(CHARSET.length));
+    return out;
+  }
+
+  /* ---------- 交互 ---------- */
+
+  function refreshUUID() { uuidOutput.textContent = generateUUID(); }
+  function refreshPassword() { pwdOutput.textContent = generatePassword(pwdLen); }
+
+  function bindRefresh(btnId, fn) {
+    var btn = document.getElementById(btnId);
+    btn.addEventListener('click', function () {
+      fn();
+      btn.classList.remove('refreshing');
+      void btn.offsetWidth; // 重新触发动画
+      btn.classList.add('refreshing');
+    });
+  }
+
+  var toastTimer = null;
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 1600);
+  }
+
+  function copyText(text, btn) {
+    function done() {
+      btn.classList.add('copied');
+      setTimeout(function () { btn.classList.remove('copied'); }, 1200);
+      showToast('已复制到剪贴板');
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(); });
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); }
+      catch (e) { showToast('复制失败，请手动选择'); }
+      document.body.removeChild(ta);
+    }
+  }
+
+  document.getElementById('uuidCopy').addEventListener('click', function () {
+    copyText(uuidOutput.textContent, this);
+  });
+  document.getElementById('pwdCopy').addEventListener('click', function () {
+    copyText(pwdOutput.textContent, this);
+  });
+
+  // 密码长度切换
+  document.getElementById('lenSeg').addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    pwdLen = parseInt(btn.getAttribute('data-len'), 10);
+    var btns = this.querySelectorAll('button');
+    for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('active', btns[i] === btn);
+    refreshPassword();
+  });
+
+  bindRefresh('uuidRefresh', refreshUUID);
+  bindRefresh('pwdRefresh', refreshPassword);
+
+  // 初始生成
+  refreshUUID();
+  refreshPassword();
+})();
+</script>
+</body>
+</html>
