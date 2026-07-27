@@ -74,6 +74,7 @@
     padding: 12px 14px; display: flex; align-items: center;
     overflow-x: auto; white-space: nowrap; user-select: all;
   }
+  .output.segmented { user-select: text; cursor: text; }
   .output::-webkit-scrollbar { height: 6px; }
   .output::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
@@ -242,8 +243,27 @@
 
   /* ---------- 交互 ---------- */
 
-  function refreshUUID() { uuidOutput.textContent = generateUUID(); }
+  function refreshUUID() {
+    var uuid = generateUUID();
+    uuidOutput.classList.add('segmented');
+    uuidOutput.innerHTML = uuid.split('-').map(function (seg, i) {
+      var sep = i > 0 ? '<span class="uuid-dash">-</span>' : '';
+      return sep + '<span class="uuid-seg">' + seg + '</span>';
+    }).join('');
+  }
   function refreshPassword() { pwdOutput.textContent = generatePassword(pwdLen); }
+
+  // 双击 UUID 时只选中所在的"-"分段，而不是整个 UUID
+  uuidOutput.addEventListener('dblclick', function (e) {
+    var seg = e.target.closest ? e.target.closest('.uuid-seg') : null;
+    if (!seg) return;
+    e.preventDefault();
+    var range = document.createRange();
+    range.selectNodeContents(seg);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  });
 
   function bindRefresh(btnId, fn) {
     var btn = document.getElementById(btnId);
