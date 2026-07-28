@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>在线工具箱 · UUID / 密码生成器</title>
+<title>在线工具箱 · UUID / 密码 / Base64</title>
 <style>
   :root {
     --bg: #f7f9fc;
@@ -117,6 +117,43 @@
 
   .hint { margin-top: 12px; font-size: 12px; color: var(--text-secondary); }
 
+  /* Base64 编解码 */
+  .codec-fields { display: grid; gap: 14px; }
+  .field-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 7px; }
+  .field-label { font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+  .codec-textarea {
+    display: block; width: 100%; min-height: 108px; resize: vertical;
+    padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px;
+    background: var(--bg); color: var(--text); font: 14px/1.6 var(--mono);
+    outline: none; transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .codec-textarea::placeholder { color: var(--text-secondary); opacity: .72; }
+  .codec-textarea:focus {
+    border-color: var(--accent);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .codec-actions {
+    display: flex; align-items: center; gap: 8px; flex-wrap: nowrap;
+    overflow-x: auto; padding-bottom: 2px;
+  }
+  .action-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 5px; flex: none;
+    min-height: 38px; padding: 8px 14px; border: 1px solid var(--border); border-radius: 9px;
+    background: var(--surface); color: var(--text); font: inherit; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: color .15s ease, border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .action-btn svg { width: 15px; height: 15px; }
+  .action-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .action-btn:active { transform: scale(.97); }
+  .action-btn.primary { color: #fff; border-color: var(--accent); background: var(--accent); }
+  .action-btn.primary:hover { color: #fff; border-color: var(--accent-hover); background: var(--accent-hover); }
+  .codec-copy { width: 34px; height: 34px; }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+
   /* 其他工具导航 */
   .nav-section-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 4px 2px 12px; letter-spacing: .5px; }
   .tool-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
@@ -149,7 +186,7 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>随机生成器</h1>
+    <h1>迷你工具箱</h1>
   </header>
 
   <!-- UUID 生成器 -->
@@ -187,6 +224,42 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
       </button>
     </div>
+  </section>
+
+  <!-- Base64 编解码 -->
+  <section class="card">
+    <div class="card-head">
+      <span class="card-title">Base64 编解码</span>
+    </div>
+    <div class="codec-fields">
+      <div>
+        <div class="field-head">
+          <label class="field-label" for="base64Input">请输入要进行 Base64 编码或解码的内容</label>
+        </div>
+        <textarea class="codec-textarea" id="base64Input"></textarea>
+      </div>
+      <div class="codec-actions">
+        <button class="action-btn primary" id="base64Encode" type="button">编码</button>
+        <button class="action-btn" id="base64Decode" type="button">解码</button>
+        <button class="action-btn" id="base64Swap" type="button">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/></svg>
+          交换
+        </button>
+        <button class="action-btn" id="base64FileEncode" type="button">编码文件</button>
+        <button class="action-btn" id="base64FileDecode" type="button">解码为文件</button>
+        <input class="visually-hidden" id="base64FileInput" type="file" tabindex="-1">
+      </div>
+      <div>
+        <div class="field-head">
+          <label class="field-label" for="base64Output">Base64 编码或解码结果</label>
+          <button class="icon-btn codec-copy" id="base64Copy" type="button" title="复制结果" aria-label="复制 Base64 处理结果">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </div>
+        <textarea class="codec-textarea" id="base64Output"></textarea>
+      </div>
+    </div>
+    <p class="hint">Ctrl + Enter 编码 · 文件上限 10 MiB · 文本和文件都仅在本地处理，不会上传。</p>
   </section>
 
   <!-- 其他工具导航 -->
@@ -227,6 +300,12 @@
 
   var uuidOutput = document.getElementById('uuidOutput');
   var pwdOutput  = document.getElementById('pwdOutput');
+  var base64Input = document.getElementById('base64Input');
+  var base64Output = document.getElementById('base64Output');
+  var base64FileInput = document.getElementById('base64FileInput');
+  var MAX_FILE_SIZE = 10 * 1024 * 1024;
+  var lastEncodedFileData = '';
+  var lastEncodedFileName = '';
   var pwdLen = 16;
 
   /* ---------- 生成逻辑 ---------- */
@@ -261,6 +340,79 @@
     var out = '';
     for (var i = 0; i < len; i++) out += CHARSET.charAt(randomInt(CHARSET.length));
     return out;
+  }
+
+  function encodeBase64(text) {
+    var bytes = new TextEncoder().encode(text);
+    var binary = '';
+    var chunkSize = 0x8000;
+    for (var i = 0; i < bytes.length; i += chunkSize) {
+      binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+    }
+    return btoa(binary);
+  }
+
+  function parseBase64Source(text) {
+    var source = text.trim();
+    var mime = 'application/octet-stream';
+    if (source.slice(0, 5).toLowerCase() === 'data:') {
+      var comma = source.indexOf(',');
+      if (comma < 0) throw new Error('Invalid Data URI');
+      var metadata = source.slice(5, comma);
+      if (!/(?:^|;)base64(?:;|$)/i.test(metadata)) throw new Error('Not Base64 Data URI');
+      var mimePart = metadata.split(';')[0];
+      if (mimePart) mime = mimePart;
+      source = source.slice(comma + 1);
+    }
+    var normalized = source.replace(/\s+/g, '').replace(/-/g, '+').replace(/_/g, '/');
+    if (!normalized) return { base64: '', mime: mime, byteLength: 0 };
+    if (!/^[A-Za-z0-9+/]*={0,2}$/.test(normalized) || normalized.length % 4 === 1) {
+      throw new Error('Invalid Base64');
+    }
+    while (normalized.length % 4) normalized += '=';
+    var padding = normalized.slice(-2) === '==' ? 2 : (normalized.slice(-1) === '=' ? 1 : 0);
+    return {
+      base64: normalized,
+      mime: mime,
+      byteLength: (normalized.length * 3 / 4) - padding
+    };
+  }
+
+  function decodeBase64(text) {
+    var parsed = parseBase64Source(text);
+    var binary = atob(parsed.base64);
+    var bytes = new Uint8Array(binary.length);
+    for (var i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+  }
+
+  function extensionForMime(mime) {
+    var extensions = {
+      'image/png': '.png', 'image/jpeg': '.jpg', 'image/gif': '.gif', 'image/webp': '.webp',
+      'image/svg+xml': '.svg', 'application/pdf': '.pdf', 'application/json': '.json',
+      'text/plain': '.txt', 'text/html': '.html', 'text/css': '.css',
+      'application/zip': '.zip', 'audio/mpeg': '.mp3', 'video/mp4': '.mp4'
+    };
+    return extensions[mime.toLowerCase()] || '.bin';
+  }
+
+  function downloadBase64File(source) {
+    var parsed = parseBase64Source(source);
+    if (parsed.byteLength > MAX_FILE_SIZE) throw new Error('File too large');
+    var binary = atob(parsed.base64);
+    var bytes = new Uint8Array(binary.length);
+    for (var i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    var blob = new Blob([bytes], { type: parsed.mime });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = source === lastEncodedFileData && lastEncodedFileName
+      ? lastEncodedFileName
+      : 'decoded-file' + extensionForMime(parsed.mime);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   }
 
   /* ---------- 交互 ---------- */
@@ -333,6 +485,75 @@
   });
   document.getElementById('pwdCopy').addEventListener('click', function () {
     copyText(pwdOutput.textContent, this);
+  });
+  document.getElementById('base64Copy').addEventListener('click', function () {
+    if (!base64Output.value) {
+      showToast('暂无可复制内容');
+      return;
+    }
+    copyText(base64Output.value, this);
+  });
+
+  function setBase64Result(value) {
+    base64Output.value = value;
+    base64Output.scrollTop = 0;
+  }
+
+  document.getElementById('base64Encode').addEventListener('click', function () {
+    setBase64Result(encodeBase64(base64Input.value));
+  });
+  document.getElementById('base64Decode').addEventListener('click', function () {
+    try {
+      setBase64Result(decodeBase64(base64Input.value));
+    } catch (e) {
+      showToast('Base64 内容无效或不是 UTF-8 文本');
+    }
+  });
+  document.getElementById('base64Swap').addEventListener('click', function () {
+    var input = base64Input.value;
+    base64Input.value = base64Output.value;
+    base64Output.value = input;
+  });
+  function handleBase64Hotkey(e) {
+    if (e.ctrlKey && e.key === 'Enter') {
+      e.preventDefault();
+      document.getElementById('base64Encode').click();
+    }
+  }
+  base64Input.addEventListener('keydown', handleBase64Hotkey);
+  document.getElementById('base64FileEncode').addEventListener('click', function () {
+    base64FileInput.click();
+  });
+  base64FileInput.addEventListener('change', function () {
+    var file = this.files && this.files[0];
+    this.value = '';
+    if (!file) return;
+    if (file.size > MAX_FILE_SIZE) {
+      showToast('文件不能超过 10 MiB');
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function () {
+      lastEncodedFileData = String(reader.result);
+      lastEncodedFileName = file.name;
+      setBase64Result(lastEncodedFileData);
+      showToast('文件已编码');
+    };
+    reader.onerror = function () { showToast('文件读取失败'); };
+    reader.readAsDataURL(file);
+  });
+  document.getElementById('base64FileDecode').addEventListener('click', function () {
+    var source = base64Input.value.trim();
+    if (!source) {
+      showToast('请先输入 Base64 内容');
+      return;
+    }
+    try {
+      downloadBase64File(source);
+      showToast('文件已生成');
+    } catch (e) {
+      showToast(e.message === 'File too large' ? '解码后的文件不能超过 10 MiB' : 'Base64 文件内容无效');
+    }
   });
 
   // 密码长度切换
