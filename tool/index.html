@@ -6,33 +6,41 @@
 <title>在线工具箱 · UUID / 密码生成器</title>
 <style>
   :root {
-    --bg: #f5f6f8;
+    --bg: #f7f9fc;
     --surface: #ffffff;
-    --border: #e6e8ec;
-    --text: #1c1e21;
-    --text-secondary: #6b7280;
-    --accent: #4f46e5;
-    --accent-hover: #4338ca;
-    --accent-soft: #eef2ff;
+    --border: #dfe6f0;
+    --text: #172033;
+    --text-secondary: #68758a;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-soft: #eff6ff;
+    --success: #16a34a;
+    --success-soft: #f0fdf4;
+    --shadow: rgba(37, 99, 235, .08);
     --radius: 12px;
     --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #0f1115;
-      --surface: #171a21;
-      --border: #262b36;
-      --text: #e6e8ec;
-      --text-secondary: #9aa1ad;
-      --accent: #818cf8;
-      --accent-hover: #6366f1;
-      --accent-soft: #232742;
+      --bg: #0b1120;
+      --surface: #121a2b;
+      --border: #26344c;
+      --text: #edf3fc;
+      --text-secondary: #96a4ba;
+      --accent: #60a5fa;
+      --accent-hover: #93c5fd;
+      --accent-soft: #172554;
+      --success: #4ade80;
+      --success-soft: #14261c;
+      --shadow: rgba(0, 0, 0, .24);
     }
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: var(--bg);
+    background:
+      radial-gradient(circle at 50% 0, var(--accent-soft) 0, transparent 34rem),
+      var(--bg);
     color: var(--text);
     min-height: 100vh;
     display: flex;
@@ -43,8 +51,10 @@
   }
   .wrap { width: 100%; max-width: 640px; }
   header { text-align: center; margin-bottom: 28px; }
-  header h1 { font-size: 24px; font-weight: 700; letter-spacing: .5px; }
-  header p { color: var(--text-secondary); font-size: 14px; margin-top: 6px; }
+  header h1 {
+    font-size: 24px; font-weight: 700; letter-spacing: .5px;
+    color: var(--text);
+  }
 
   .card {
     background: var(--surface);
@@ -52,7 +62,7 @@
     border-radius: var(--radius);
     padding: 24px;
     margin-bottom: 20px;
-    box-shadow: 0 1px 3px rgba(16, 24, 40, .05);
+    box-shadow: 0 10px 30px var(--shadow);
   }
   .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
   .card-title { font-size: 16px; font-weight: 600; }
@@ -82,13 +92,26 @@
     flex: none; width: 44px; border: 1px solid var(--border); background: var(--surface);
     border-radius: 10px; cursor: pointer; color: var(--text-secondary);
     display: inline-flex; align-items: center; justify-content: center;
+    position: relative;
     transition: color .15s ease, border-color .15s ease, background .15s ease, transform .1s ease;
   }
   .icon-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
   .icon-btn:active { transform: scale(.94); }
   .icon-btn svg { width: 18px; height: 18px; display: block; }
 
-  .icon-btn.copied { color: #16a34a; border-color: #16a34a; }
+  .icon-btn.copied {
+    color: var(--success);
+    border-color: var(--success);
+    background: var(--success-soft);
+  }
+  .icon-btn.copied svg { opacity: 0; }
+  .icon-btn.copied::after {
+    content: "✓";
+    position: absolute;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+  }
   .icon-btn.refreshing svg { animation: spin .5s ease; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -113,7 +136,7 @@
 
   /* 轻提示 */
   .toast {
-    position: fixed; left: 50%; bottom: 32px; transform: translateX(-50%) translateY(16px);
+    position: fixed; left: 50%; top: 32px; transform: translateX(-50%) translateY(-16px);
     background: var(--text); color: var(--surface); font-size: 13px;
     padding: 9px 16px; border-radius: 8px; opacity: 0; pointer-events: none;
     transition: opacity .2s ease, transform .2s ease;
@@ -126,8 +149,7 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>在线工具箱</h1>
-    <p>本地随机生成 · 不上传任何数据</p>
+    <h1>随机生成器</h1>
   </header>
 
   <!-- UUID 生成器 -->
@@ -281,13 +303,13 @@
     t.textContent = msg;
     t.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 1600);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 600);
   }
 
   function copyText(text, btn) {
     function done() {
       btn.classList.add('copied');
-      setTimeout(function () { btn.classList.remove('copied'); }, 1200);
+      setTimeout(function () { btn.classList.remove('copied'); }, 500);
       showToast('已复制到剪贴板');
     }
     if (navigator.clipboard && window.isSecureContext) {
