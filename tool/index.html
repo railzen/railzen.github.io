@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>在线工具箱 · UUID / 密码 / Base64</title>
+<title>迷你工具箱 · UUID / 密码 / Base64 / URL</title>
 <style>
   :root {
     --bg: #f7f9fc;
@@ -149,6 +149,20 @@
   .action-btn.primary { color: #fff; border-color: var(--accent); background: var(--accent); }
   .action-btn.primary:hover { color: #fff; border-color: var(--accent-hover); background: var(--accent-hover); }
   .codec-copy { width: 34px; height: 34px; }
+  .url-inline { display: flex; align-items: stretch; gap: 8px; }
+  .url-inline-input {
+    flex: 1; min-width: 0; height: 40px; padding: 8px 12px;
+    border: 1px solid var(--border); border-radius: 9px;
+    background: var(--bg); color: var(--text); font: 14px var(--mono);
+    outline: none; transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .url-inline-input:focus {
+    border-color: var(--accent); background: var(--surface);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .url-inline .action-btn { min-height: 40px; }
+  .url-result { display: none; margin-top: 14px; }
+  .url-result.show { display: block; }
   .visually-hidden {
     position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
@@ -262,6 +276,27 @@
     <p class="hint">Ctrl + Enter 编码 · 文件上限 10 MiB · 文本和文件都仅在本地处理，不会上传。</p>
   </section>
 
+  <!-- URL 编解码 -->
+  <section class="card">
+    <div class="card-head">
+      <span class="card-title">URL 编解码</span>
+    </div>
+    <div class="url-inline">
+      <input class="url-inline-input" id="urlInput" type="text" aria-label="请输入要进行 URL 编码或解码的内容">
+      <button class="action-btn" id="urlEncode" type="button">编码</button>
+      <button class="action-btn" id="urlDecode" type="button">解码</button>
+    </div>
+    <div class="url-result" id="urlResult">
+      <div class="field-head">
+        <label class="field-label" for="urlOutput">URL 编码或解码结果</label>
+        <button class="icon-btn codec-copy" id="urlCopy" type="button" title="复制结果" aria-label="复制 URL 处理结果">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+      </div>
+      <textarea class="codec-textarea" id="urlOutput"></textarea>
+    </div>
+  </section>
+
   <!-- 其他工具导航 -->
   <p class="nav-section-title">其他工具</p>
   <nav class="tool-grid">
@@ -302,6 +337,9 @@
   var pwdOutput  = document.getElementById('pwdOutput');
   var base64Input = document.getElementById('base64Input');
   var base64Output = document.getElementById('base64Output');
+  var urlInput = document.getElementById('urlInput');
+  var urlOutput = document.getElementById('urlOutput');
+  var urlResult = document.getElementById('urlResult');
   var base64FileInput = document.getElementById('base64FileInput');
   var MAX_FILE_SIZE = 10 * 1024 * 1024;
   var lastEncodedFileData = '';
@@ -554,6 +592,47 @@
     } catch (e) {
       showToast(e.message === 'File too large' ? '解码后的文件不能超过 10 MiB' : 'Base64 文件内容无效');
     }
+  });
+
+  document.getElementById('urlCopy').addEventListener('click', function () {
+    if (!urlOutput.value) {
+      showToast('暂无可复制内容');
+      return;
+    }
+    copyText(urlOutput.value, this);
+  });
+  function showUrlResult(value) {
+    urlOutput.value = value;
+    urlOutput.scrollTop = 0;
+    urlResult.classList.add('show');
+  }
+  document.getElementById('urlEncode').addEventListener('click', function () {
+    var value = urlInput.value;
+    if (!value) {
+      showToast('请输入 URL 内容');
+      return;
+    }
+    try {
+      showUrlResult(encodeURIComponent(value));
+    } catch (e) {
+      showToast('输入内容包含无效字符');
+    }
+  });
+  document.getElementById('urlDecode').addEventListener('click', function () {
+    var value = urlInput.value;
+    if (!value) {
+      showToast('请输入 URL 内容');
+      return;
+    }
+    try {
+      showUrlResult(decodeURIComponent(value));
+    } catch (e) {
+      showToast('URL 编码内容无效');
+    }
+  });
+  urlInput.addEventListener('input', function () {
+    urlOutput.value = '';
+    urlResult.classList.remove('show');
   });
 
   // 密码长度切换
