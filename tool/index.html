@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>迷你工具箱 · UUID / 密码 / Base64 / URL</title>
+<title>迷你工具箱</title>
 <style>
   :root {
     --bg: #f7f9fc;
@@ -206,7 +206,12 @@
   <!-- UUID 生成器 -->
   <section class="card">
     <div class="card-head">
-      <span class="card-title">UUID v4</span>
+      <span class="card-title">UUID</span>
+      <div class="seg" id="uuidVerSeg" role="group" aria-label="UUID 版本">
+        <button type="button" data-ver="1">V1</button>
+        <button type="button" data-ver="4" class="active">V4</button>
+        <button type="button" data-ver="7">V7</button>
+      </div>
     </div>
     <div class="output-row">
       <div class="output" id="uuidOutput">—</div>
@@ -345,6 +350,7 @@
   var lastEncodedFileData = '';
   var lastEncodedFileName = '';
   var pwdLen = 16;
+  var uuidVer = 4;
 
   /* ---------- 生成逻辑 ---------- */
 
@@ -360,18 +366,77 @@
     return b % max;
   }
 
-  function generateUUID() {
+  function bytesToUUID(bytes) {
+    var hex = [];
+    for (var i = 0; i < 16; i++) hex.push(('0' + bytes[i].toString(16)).slice(-2));
+    return hex.slice(0, 4).join('') + '-' + hex.slice(4, 6).join('') + '-' +
+           hex.slice(6, 8).join('') + '-' + hex.slice(8, 10).join('') + '-' +
+           hex.slice(10, 16).join('');
+  }
+
+  // v1：时间戳 + 时钟序列 + 随机节点（组播位）
+  function generateUUIDv1() {
+    var now = Date.now();
+    var timeLow, timeMid, timeHi;
+    if (typeof BigInt !== 'undefined') {
+      var time = BigInt(now) * 10000n + 0x01B21DD213814000n;
+      timeLow = Number(time & 0xffffffffn);
+      timeMid = Number((time >> 32n) & 0xffffn);
+      timeHi = Number((time >> 48n) & 0x0fffn) | 0x1000;
+    } else {
+      // 无 BigInt 时按毫秒近似拆分（精度略降）
+      var t = now * 10000 + 122192928000000000;
+      timeLow = t % 0x100000000;
+      timeMid = Math.floor(t / 0x100000000) & 0xffff;
+      timeHi = (Math.floor(t / 0x1000000000000) & 0x0fff) | 0x1000;
+    }
+    var clockSeq = new Uint8Array(2);
+    var node = new Uint8Array(6);
+    crypto.getRandomValues(clockSeq);
+    crypto.getRandomValues(node);
+    node[0] |= 0x01;
+    var bytes = new Uint8Array(16);
+    bytes[0] = (timeLow >>> 24) & 0xff;
+    bytes[1] = (timeLow >>> 16) & 0xff;
+    bytes[2] = (timeLow >>> 8) & 0xff;
+    bytes[3] = timeLow & 0xff;
+    bytes[4] = (timeMid >>> 8) & 0xff;
+    bytes[5] = timeMid & 0xff;
+    bytes[6] = (timeHi >>> 8) & 0xff;
+    bytes[7] = timeHi & 0xff;
+    bytes[8] = (clockSeq[0] & 0x3f) | 0x80;
+    bytes[9] = clockSeq[1];
+    for (var i = 0; i < 6; i++) bytes[10 + i] = node[i];
+    return bytesToUUID(bytes);
+  }
+
+  function generateUUIDv4() {
     if (crypto.randomUUID) return crypto.randomUUID();
-    // 回退：手动构造 v4 UUID
     var bytes = new Uint8Array(16);
     crypto.getRandomValues(bytes);
     bytes[6] = (bytes[6] & 0x0f) | 0x40;
     bytes[8] = (bytes[8] & 0x3f) | 0x80;
-    var hex = [];
-    for (var i = 0; i < 16; i++) hex.push(('0' + bytes[i].toString(16)).slice(-2));
-    return hex.slice(0,4).join('') + '-' + hex.slice(4,6).join('') + '-' +
-           hex.slice(6,8).join('') + '-' + hex.slice(8,10).join('') + '-' +
-           hex.slice(10,16).join('');
+    return bytesToUUID(bytes);
+  }
+
+  // v7：Unix 毫秒时间戳（48 bit）+ 随机位（RFC 9562）
+  function generateUUIDv7() {
+    var bytes = new Uint8Array(16);
+    crypto.getRandomValues(bytes);
+    var ts = Date.now();
+    for (var i = 5; i >= 0; i--) {
+      bytes[i] = ts & 0xff;
+      ts = Math.floor(ts / 256);
+    }
+    bytes[6] = (bytes[6] & 0x0f) | 0x70;
+    bytes[8] = (bytes[8] & 0x3f) | 0x80;
+    return bytesToUUID(bytes);
+  }
+
+  function generateUUID() {
+    if (uuidVer === 1) return generateUUIDv1();
+    if (uuidVer === 7) return generateUUIDv7();
+    return generateUUIDv4();
   }
 
   function generatePassword(len) {
@@ -635,6 +700,16 @@
     urlResult.classList.remove('show');
   });
 
+  // UUID 版本切换
+  document.getElementById('uuidVerSeg').addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    uuidVer = parseInt(btn.getAttribute('data-ver'), 10);
+    var btns = this.querySelectorAll('button');
+    for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('active', btns[i] === btn);
+    refreshUUID();
+  });
+
   // 密码长度切换
   document.getElementById('lenSeg').addEventListener('click', function (e) {
     var btn = e.target.closest('button');
@@ -648,7 +723,7 @@
   bindRefresh('uuidRefresh', refreshUUID);
   bindRefresh('pwdRefresh', refreshPassword);
 
-  // 初始生成
+  // 初始生成（默认 v4）
   refreshUUID();
   refreshPassword();
 })();
