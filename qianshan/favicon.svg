@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>OAUZ</title>
+  <defs>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101923"/>
+      <stop offset="1" stop-color="#1b2530"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2468bc"/>
+      <stop offset="1" stop-color="#1763bd"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="82" fill="#faf9f6"/>
+  <rect x="94" y="102" width="142" height="132" rx="52" fill="none" stroke="url(#ink)" stroke-width="28"/>
+  <path d="M278 234 333 111q7-15 20 0l55 123" fill="none" stroke="url(#ink)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="320" y="216" width="52" height="16" rx="4" fill="url(#blue)"/>
+  <path d="M100 282v80q0 58 57 58h18q57 0 57-58v-80" fill="none" stroke="url(#ink)" stroke-width="28" stroke-linecap="round"/>
+  <path d="M280 282h124L280 420h124" fill="none" stroke="url(#ink)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
