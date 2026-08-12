@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4IiB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJNb3VudGFpbnMiPgogIDwhLS0gTGVmdCBwZWFrIC0tPgogIDxwYXRoIGZpbGw9IiNEOUE1M0YiIGQ9Ik0xMCAxMDAgTDQwIDQ2IEw3MCAxMDAgWiIvPgogIDxwYXRoIGZpbGw9IiNGMkNCNzQiIGQ9Ik00MCA0NiBMMzQgNTggTDQwIDU1LjUgWiIvPgoKICA8IS0tIFJpZ2h0IHBlYWsgLS0+CiAgPHBhdGggZmlsbD0iIzZBNDg3NiIgZD0iTTU0IDEwMCBMOTAgMzQgTDEyNiAxMDAgWiIvPgogIDxwYXRoIGZpbGw9IiM5QjdDQTgiIGQ9Ik05MCAzNCBMODQgNDggTDkwIDQ1LjUgWiIvPgoKICA8IS0tIENlbnRlciBwZWFrIChmcm9udCkgLS0+CiAgPHBhdGggZmlsbD0iI0M4NkE2NyIgZD0iTTMyIDEwMCBMNjQgMjAgTDk2IDEwMCBaIi8+CiAgPHBhdGggZmlsbD0iI0U5QTI5RSIgZD0iTTY0IDIwIEw1NiA0MCBMNjQgMzcgWiIvPgo8L3N2Zz4K">
     <title>
       San Jose
@@ -575,6 +575,10 @@
         -ms-text-size-adjust: 100%;
         background-color: #fff;
       }
+      html.ios {
+        height: 100vh;
+        overflow: hidden;
+      }
       body {
         margin: 0;
         font-family: 'Microsoft Yahei',sans-serif;
@@ -588,10 +592,23 @@
       body:before {
         content: '';
         position: fixed;
-        inset: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         z-index: -1;
         pointer-events: none;
-        background: #fff url(qianshan/resources/mountain.png) center bottom/cover no-repeat;
+        background: #fff url(qianshan/resources/mountain.png) no-repeat center bottom;
+        background-size: cover;
+      }
+      .ios body {
+        height: 100%;
+        overflow: hidden;
+        background: #fff url(qianshan/resources/mountain.png) no-repeat center bottom;
+        background-size: cover;
+      }
+      .ios body:before {
+        display: none;
       }
       a {
         background: transparent;
@@ -654,6 +671,11 @@
       .container {
         display: none;
         z-index: 1;
+      }
+      .ios .container {
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
       .col {
         margin: 0;
@@ -743,6 +765,18 @@
     <script>
       (() => {
         const c = document.querySelector('.container');
+        const isiOS = /iP(hone|od|ad)/.test(navigator.userAgent);
+        if (isiOS) {
+          document.documentElement.classList.add('ios');
+          const fit = () => {
+            document.documentElement.style.height = screen.height + 'px';
+            document.body.style.height = screen.height + 'px';
+            if (c) c.style.paddingBottom = Math.max(screen.height - innerHeight, 0) + 'px';
+          };
+          addEventListener('orientationchange', fit);
+          addEventListener('resize', fit);
+          fit();
+        }
         const L = () => {
           if (!c) return;
           let h = getComputedStyle(c).display == 'none';
@@ -754,7 +788,12 @@
             float: 'none',
             display: 'inherit'
           });
-          c.style.top = Math.max((innerHeight - c.offsetHeight) / 4, 0) + 'px';
+          if (isiOS) {
+            c.style.paddingTop = '0';
+            c.style.paddingTop = Math.max((innerHeight - c.scrollHeight) / 4, 0) + 'px';
+          } else {
+            c.style.top = Math.max((innerHeight - c.offsetHeight) / 4, 0) + 'px';
+          }
           if (h) c.style.visibility = '';
         };
         onresize = L;
