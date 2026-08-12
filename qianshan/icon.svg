@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Mountains">
+  <!-- Left peak -->
+  <path fill="#D9A53F" d="M10 100 L40 46 L70 100 Z"/>
+  <path fill="#F2CB74" d="M40 46 L34 58 L40 55.5 Z"/>
+
+  <!-- Right peak -->
+  <path fill="#6A4876" d="M54 100 L90 34 L126 100 Z"/>
+  <path fill="#9B7CA8" d="M90 34 L84 48 L90 45.5 Z"/>
+
+  <!-- Center peak (front) -->
+  <path fill="#C86A67" d="M32 100 L64 20 L96 100 Z"/>
+  <path fill="#E9A29E" d="M64 20 L56 40 L64 37 Z"/>
+</svg>
