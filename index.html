@@ -3,18 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <script>
       (() => {
         const ua = navigator.userAgent;
-        const iosSafari = /iP(hone|od|ad)/.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS/.test(ua);
-        if (iosSafari) {
+        if (/iP(hone|od|ad)/.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS/.test(ua)) {
           document.documentElement.classList.add('ios');
-        } else {
-          document.querySelector('meta[name="viewport"]').setAttribute(
-            'content',
-            'width=device-width,initial-scale=1'
-          );
+          document.querySelector('meta[name="viewport"]').content += ',viewport-fit=cover';
         }
       })();
     </script>
@@ -580,6 +575,9 @@
       </div>
     </div>
     <style>
+      :root {
+        --scene: #fff url(qianshan/resources/mountain.png) no-repeat center bottom / cover;
+      }
       *,:before,:after {
         box-sizing: border-box;
       }
@@ -588,10 +586,6 @@
         -webkit-text-size-adjust: 100%;
         -ms-text-size-adjust: 100%;
         background-color: #fff;
-      }
-      html.ios {
-        height: 100vh;
-        overflow: hidden;
       }
       body {
         margin: 0;
@@ -606,24 +600,22 @@
       body:before {
         content: '';
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: env(safe-area-inset-bottom, 0px);
-        height: auto;
+        inset: 0 0 env(safe-area-inset-bottom, 0px);
         z-index: -1;
         pointer-events: none;
-        background: #fff url(qianshan/resources/mountain.png) no-repeat center bottom;
-        background-size: cover;
+        background: var(--scene);
       }
-      .ios body {
+      html.ios {
+        height: 100vh;
+        overflow: hidden;
+      }
+      html.ios body {
         height: 100%;
         overflow: hidden;
-        background: #fff url(qianshan/resources/mountain.png) no-repeat center bottom;
-        background-size: cover;
+        background: var(--scene);
       }
-      .ios body:before {
-        display: none;
+      html.ios body:before {
+        content: none;
       }
       a {
         background: transparent;
@@ -686,11 +678,9 @@
       .container {
         display: none;
         z-index: 1;
-      }
-      html:not(.ios) .container {
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
-      .ios .container {
+      html.ios .container {
         height: 100%;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
@@ -784,45 +774,36 @@
       (() => {
         const c = document.querySelector('.container');
         const isiOS = document.documentElement.classList.contains('ios');
-        const visibleHeight = () => {
-          const vv = window.visualViewport && window.visualViewport.height;
-          return Math.min(innerHeight, vv || innerHeight);
-        };
+        const frameH = () => (visualViewport && visualViewport.height) || innerHeight;
         if (isiOS) {
           const fit = () => {
             document.documentElement.style.height = screen.height + 'px';
             document.body.style.height = screen.height + 'px';
-            if (c) c.style.paddingBottom = Math.max(screen.height - innerHeight, 0) + 'px';
+            c && (c.style.paddingBottom = Math.max(screen.height - innerHeight, 0) + 'px');
           };
           addEventListener('orientationchange', fit);
           addEventListener('resize', fit);
           fit();
         }
-        const L = () => {
+        const place = () => {
           if (!c) return;
-          let h = getComputedStyle(c).display == 'none';
-          if (h) c.style.visibility = 'hidden';
+          const hide = getComputedStyle(c).display == 'none';
+          if (hide) c.style.visibility = 'hidden';
           Object.assign(c.style, {
             position: 'relative',
             top: '0',
             margin: '0 auto',
             float: 'none',
-            display: 'inherit'
+            display: 'inherit',
+            paddingTop: '0'
           });
-          if (isiOS) {
-            c.style.paddingTop = '0';
-            c.style.paddingTop = Math.max((innerHeight - c.scrollHeight) / 4, 0) + 'px';
-          } else {
-            c.style.top = Math.max((visibleHeight() - c.offsetHeight) / 4, 0) + 'px';
-          }
-          if (h) c.style.visibility = '';
+          c.style.paddingTop = Math.max((frameH() - c.scrollHeight) / 4, 0) + 'px';
+          if (hide) c.style.visibility = '';
         };
-        onresize = L;
-        onload = L;
-        if (!isiOS && window.visualViewport) {
-          visualViewport.addEventListener('resize', L);
-        }
-        L();
+        addEventListener('resize', place);
+        addEventListener('load', place);
+        visualViewport && visualViewport.addEventListener('resize', place);
+        place();
         onkeydown = e => {
           let k = e.which || e.keyCode;
           let a = document.querySelector('.k' + k);
