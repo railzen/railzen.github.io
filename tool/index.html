@@ -288,6 +288,7 @@
     </div>
     <div class="url-inline">
       <input class="url-inline-input" id="urlInput" type="text" aria-label="请输入要进行 URL 编码或解码的内容">
+      <button class="action-btn" id="urlPaste" type="button">粘贴</button>
       <button class="action-btn" id="urlEncode" type="button">编码</button>
       <button class="action-btn" id="urlDecode" type="button">解码</button>
     </div>
@@ -671,6 +672,21 @@
     urlOutput.scrollTop = 0;
     urlResult.classList.add('show');
   }
+  document.getElementById('urlPaste').addEventListener('click', function () {
+    navigator.clipboard.readText()
+      .then(function (text) {
+        if (!text) {
+          showToast('剪贴板为空');
+          return;
+        }
+        urlInput.value = text;
+        urlOutput.value = '';
+        urlResult.classList.remove('show');
+      })
+      .catch(function () {
+        showToast('无法读取剪贴板');
+      });
+  });
   document.getElementById('urlEncode').addEventListener('click', function () {
     var value = urlInput.value;
     if (!value) {
